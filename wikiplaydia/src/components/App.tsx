@@ -4,6 +4,7 @@ import DisplayArticle from "./play/displayarticle/DisplayArticle";
 import {HtmlNode} from "./play/displayarticle/Parsers";
 import Play from "./play/Play";
 import Select from "./select/Select";
+import Win from "./win/Win";
 
 export type Section = {
     title: string,
@@ -21,9 +22,8 @@ export type GameState = {
     win: boolean
 }
 
-export const startGame =  {
-    playing: true, clicks: 0, win: false
-}
+export const startGame =  {playing: true, clicks: 0, win: false}
+export const beforeGame =  {playing: false, clicks: 0, win: false}
 
 const App = () => {
 
@@ -32,7 +32,12 @@ const App = () => {
 
     return(
         <div>
-            {gameState.win && <h1>YEEEEEEEEEEEEEY</h1>}
+            {gameState.win &&
+                <Win
+                    goal={goal} gameState={gameState}
+                    setGameState={setGameState}
+                />
+            }
             {gameState.playing ?
                 <Play
                     goal={goal} gameState={gameState}

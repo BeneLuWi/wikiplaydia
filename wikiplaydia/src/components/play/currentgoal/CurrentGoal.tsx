@@ -31,6 +31,8 @@ const CurrentGoal: React.FC<CurrentGoalProps> = ({show, setShowGoal, article, go
         </div>
     )
 
+    if (!article.length) return <div>Loading</div>
+
     return (
         <div>
             <div>
