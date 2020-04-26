@@ -1,14 +1,30 @@
 import React from "react";
+import {Section} from "../../App";
 
 const html2json = require('html2json').html2json;
 
 export type HtmlNode = {
     node: "element" | "text",
-    tag: "p" | "a" | "text" | "figure" | "ul" | "li" | "table" | "td" | "tr" | "tbody" | "th",
+    tag: "p" | "a" | "text" | "figure" | "ul" | "li" | "table" | "td" | "tr" | "tbody" | "th" | "h1" | "h2" | "h3" | "h4",
     text: string,
     child: HtmlNode[],
     link?: string,
     attr?: {href: string}
+}
+
+export const article2sections = (article: any) : Section[] => {
+    return [
+        {
+            title: article.lead.normalizedtitle,
+            content: parse_section(article.lead.sections[0].text)
+        },
+        ...article.remaining.sections
+            .map((section: any) => ({
+                title: section.line,
+                content: parse_section(section.text)
+            }))
+            .filter((section: Section) => section.content.length)
+    ]
 }
 
 export const parse_section = (art : string) => {
@@ -29,7 +45,11 @@ export const parse_node = (node: HtmlNode): HtmlNode[] => {
 
     switch (node.tag) {
         case "a":
-            if (!node.attr?.href.startsWith("/wiki") || node.attr?.href.startsWith("/wiki/Datei")) return [];
+            if (!node.attr?.href.startsWith("/wiki") ||
+                node.attr?.href.startsWith("/wiki/Datei") ||
+                node.attr?.href.startsWith("/wiki/Special:")
+            ) return [{...node, tag: "text", node: "text"}];
+            if (!node.child[0].text) return [];
             return [{
                 tag: "a",
                 node: "element",
@@ -40,6 +60,10 @@ export const parse_node = (node: HtmlNode): HtmlNode[] => {
         case "figure":
             return [];
 
+        case "h1":
+        case "h2":
+        case "h3":
+        case "h4":
         case "ul":
         case "li":
         case "td":
@@ -62,40 +86,39 @@ export const parse_node = (node: HtmlNode): HtmlNode[] => {
 export const createElement = (node: HtmlNode, onClick: (link: string | undefined) => void) => {
     switch (node.tag) {
         case "a":
+            if (!node.link) return <span dangerouslySetInnerHTML={{__html: node.text}}/>
             return (
                 <button onClick={() => onClick(node.link)}>
-                    {node.text}
+                    <span dangerouslySetInnerHTML={{__html: node.text}}/>
                 </button>
             )
         case "text":
-            return <span>{node.text}</span>
+            return <span dangerouslySetInnerHTML={{__html: node.text}}/>
         case "ul":
             return (
-                null
+                <ul>
+                    {node.child.filter(c => c.child.length).map(child => createElement(child, onClick))}
+                </ul>
             )
+        case "h1":
+        case "h2":
+        case "h3":
+        case "h4":
         case "li":
+        case "td":
+        case "tr":
+        case "th":
+        case "tbody":
             return (
-                null
+                <node.tag>
+                    {node.child.map(child => createElement(child, onClick))}
+                </node.tag>
             )
         case "table":
             return (
-                null
-            )
-        case "td":
-            return (
-                null
-            )
-        case "tr":
-            return (
-                null
-            )
-        case "tbody":
-            return (
-                null
-            )
-        case "th":
-            return (
-                null
+                <table>
+                    {node.child.map(child => createElement(child, onClick))}
+                </table>
             )
     }
 };

@@ -1,8 +1,7 @@
 import React, {useState} from 'react';
 import './App.css';
-import LoadArticle from "./loadarticle/LoadArticle";
-import DisplayArticle from "./displayarticle/DisplayArticle";
-import {HtmlNode} from "./displayarticle/Parsers";
+import DisplayArticle from "./play/displayarticle/DisplayArticle";
+import {HtmlNode} from "./play/displayarticle/Parsers";
 
 export type Section = {
     title: string,
@@ -11,17 +10,13 @@ export type Section = {
 
 const App = () => {
 
-    const [article, set_article] = useState<Section[]>([]);
+    const [article, setArticle] = useState<Section[]>([]);
 
     const [page, set_page] = useState(null);
 
-
-
-
     return(
         <div>
-            <LoadArticle set_article={set_article}/>
-            <DisplayArticle article={article} set_article={set_article}/>
+            <DisplayArticle article={article} setArticle={setArticle}/>
         </div>
     )
 
