@@ -5,7 +5,9 @@ const html2json = require('html2json').html2json;
 
 export type HtmlNode = {
     node: "element" | "text",
-    tag: "p" | "a" | "text" | "figure" | "ul" | "li" | "table" | "td" | "tr" | "tbody" | "th" | "h1" | "h2" | "h3" | "h4",
+    tag: "p" | "a" | "text" | "figure" | "ul" | "li" |
+        "table" | "td" | "tr" | "tbody" | "th" |
+        "h1" | "h2" | "h3" | "h4" | "style",
     text: string,
     child: HtmlNode[],
     link?: string,
@@ -78,6 +80,9 @@ export const parse_node = (node: HtmlNode): HtmlNode[] => {
                 ...node,
                 child: parse_node(node.child[1])
             }];
+        //Special case error handling
+        case "style":
+            return [];
         default:
             return node.child ? node.child.map(ch => parse_node(ch)).flat() : [];
     }
