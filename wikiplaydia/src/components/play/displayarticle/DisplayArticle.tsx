@@ -18,7 +18,9 @@ const DisplayArticle: React.FC<DisplayArticleProps> = ({article, setArticle}) =>
      * FUNCTIONS
      ***************/
     const loadNew = (link: string|undefined) => {
-        axios.get("https://de.wikipedia.org/api/rest_v1/page/mobile-sections/" + link)
+        axios.get("https://de.wikipedia.org/api/rest_v1/page/mobile-sections/" + link, {
+            onDownloadProgress: p => console.log(p.loaded / 100000)
+        })
             .then(res =>{
                 setArticle(article2sections(res.data))
             }).catch(err => console.log(err))

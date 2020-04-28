@@ -29,6 +29,8 @@ const App = () => {
 
     const [goal, setGoal] = useState<Goal | null>(null);
     const [gameState, setGameState] = useState<GameState>({playing: false, clicks: 0, win: false})
+    const [progress, setProgress] = useState(1);
+
 
     return(
         <div>
