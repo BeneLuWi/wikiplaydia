@@ -1,6 +1,7 @@
 import React from 'react';
 import {Goal, Section} from "../../App";
 import {createElement} from "../displayarticle/Parsers";
+import SectionAccordion from "../../../assets/components/section/SectionAccordion";
 
 type CurrentGoalProps = {
     show: boolean,
@@ -46,14 +47,7 @@ const CurrentGoal: React.FC<CurrentGoalProps> = ({show, setShowGoal, article, go
                 )}
             </div>
             {article.slice(1).map(section =>
-                <div>
-                    <h3>{section.title}</h3>
-                    {section.content.map(node =>
-                        <span>
-                            {createElement(node, () => {})}
-                        </span>
-                    )}
-                </div>
+                <SectionAccordion loadNew={() => {}} section={section}/>
             )}
         </div>
     )

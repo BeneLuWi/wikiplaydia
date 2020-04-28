@@ -8,10 +8,11 @@ import CurrentGoal from "./currentgoal/CurrentGoal";
 type PlayProps = {
     goal: Goal | null,
     gameState: GameState,
-    setGameState: (state: GameState) => void
+    setGameState: (state: GameState) => void,
+    setProgress: (progress: number) => void
 }
 
-const Play: React.FC<PlayProps> = ({goal, setGameState, gameState}) => {
+const Play: React.FC<PlayProps> = ({goal, setGameState, gameState,setProgress}) => {
 
     /***************
      * HOOKS
@@ -76,7 +77,7 @@ const Play: React.FC<PlayProps> = ({goal, setGameState, gameState}) => {
                 zur Übersicht
             </div>
             <span>{gameState.clicks}</span>
-            <DisplayArticle article={article} setArticle={loadNextArticle}/>
+            <DisplayArticle article={article} setArticle={loadNextArticle} setProgress={setProgress}/>
             <CurrentGoal show={showGoal} setShowGoal={setShowGoal} article={goalArticle} goal={goal}/>
         </div>
     )

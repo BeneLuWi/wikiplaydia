@@ -78,7 +78,7 @@ export const parse_node = (node: HtmlNode): HtmlNode[] => {
         case "table":
             return [{
                 ...node,
-                child: parse_node(node.child[1])
+                child: parse_node(node.child[0])
             }];
         //Special case error handling
         case "style":
@@ -93,7 +93,9 @@ export const createElement = (node: HtmlNode, onClick: (link: string | undefined
         case "a":
             if (!node.link) return <span dangerouslySetInnerHTML={{__html: node.text}}/>
             return (
-                <button onClick={() => onClick(node.link)}>
+                <button
+                    className="w3-btn-small w3-green w3-round w3-small"
+                    onClick={() => onClick(node.link)}>
                     <span dangerouslySetInnerHTML={{__html: node.text}}/>
                 </button>
             )
@@ -101,7 +103,7 @@ export const createElement = (node: HtmlNode, onClick: (link: string | undefined
             return <span dangerouslySetInnerHTML={{__html: node.text}}/>
         case "ul":
             return (
-                <ul>
+                <ul className="w3-ul">
                     {node.child.filter(c => c.child.length).map(child => createElement(child, onClick))}
                 </ul>
             )
@@ -121,7 +123,7 @@ export const createElement = (node: HtmlNode, onClick: (link: string | undefined
             )
         case "table":
             return (
-                <table>
+                <table className="w3-table">
                     {node.child.map(child => createElement(child, onClick))}
                 </table>
             )

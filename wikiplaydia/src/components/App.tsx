@@ -1,10 +1,12 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './App.css';
 import DisplayArticle from "./play/displayarticle/DisplayArticle";
 import {HtmlNode} from "./play/displayarticle/Parsers";
 import Play from "./play/Play";
 import Select from "./select/Select";
 import Win from "./win/Win";
+import ProgressBar from "../assets/components/progressbar/ProgressBar";
+import smoothscroll from "smoothscroll-polyfill";
 
 export type Section = {
     title: string,
@@ -34,23 +36,26 @@ const App = () => {
 
     return(
         <div>
+            <ProgressBar progress={progress}/>
             {gameState.win &&
                 <Win
                     goal={goal} gameState={gameState}
                     setGameState={setGameState}
                 />
             }
-            {gameState.playing ?
-                <Play
-                    goal={goal} gameState={gameState}
-                    setGameState={setGameState}
-                /> :
-                <Select
-                    goal={goal} setGoal={setGoal}
-                    gameState={gameState} setGameState={setGameState}
-                />
-            }
-
+            <div className="w3-margin w3-card w3-round w3-container">
+                {gameState.playing ?
+                    <Play
+                        goal={goal} gameState={gameState}
+                        setGameState={setGameState}
+                        setProgress={setProgress}
+                    /> :
+                    <Select
+                        goal={goal} setGoal={setGoal}
+                        gameState={gameState} setGameState={setGameState}
+                    />
+                }
+            </div>
         </div>
     )
 
