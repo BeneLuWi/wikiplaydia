@@ -103,7 +103,7 @@ export const createElement = (node: HtmlNode, onClick: (link: string | undefined
             return <span dangerouslySetInnerHTML={{__html: node.text}}/>
         case "ul":
             return (
-                <ul className="w3-ul">
+                <ul className="">
                     {node.child.filter(c => c.child.length).map(child => createElement(child, onClick))}
                 </ul>
             )
@@ -123,7 +123,7 @@ export const createElement = (node: HtmlNode, onClick: (link: string | undefined
             )
         case "table":
             return (
-                <table className="w3-table">
+                <table className="w3-table-all">
                     {node.child.map(child => createElement(child, onClick))}
                 </table>
             )

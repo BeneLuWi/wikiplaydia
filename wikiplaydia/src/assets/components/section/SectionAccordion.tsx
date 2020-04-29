@@ -1,12 +1,16 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState} from 'react';
 import {Section} from "../../../components/App";
 import {createElement} from "../../../components/play/displayarticle/Parsers";
 import "./SectionAccordion.css"
+import {useSpring} from "react-spring";
+
 
 type SectionProps = {
     section: Section,
     loadNew: (link: string|undefined) => void
 }
+
+const defaultHeight = 0;
 
 const SectionAccordion: React.FC<SectionProps> = ({section,loadNew}) => {
 
@@ -15,8 +19,6 @@ const SectionAccordion: React.FC<SectionProps> = ({section,loadNew}) => {
      ***************/
 
     const [expand, setExpand] = useState<boolean>(false);
-
-    useEffect(() => {setExpand(false)}, [section])
 
     /***************
      * FUNCTIONS
@@ -33,7 +35,7 @@ const SectionAccordion: React.FC<SectionProps> = ({section,loadNew}) => {
                 {section.title}
             </div>
             {expand &&
-                <div >
+                <div>
                     {section.content.map(node =>
                         <span>
                             {createElement(node, loadNew)}

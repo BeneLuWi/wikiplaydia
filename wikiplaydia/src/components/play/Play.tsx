@@ -4,6 +4,7 @@ import DisplayArticle from "./displayarticle/DisplayArticle";
 import axios from "axios";
 import {article2sections} from "./displayarticle/Parsers";
 import CurrentGoal from "./currentgoal/CurrentGoal";
+import ButtonBar from "./buttonbar/ButtonBar";
 
 type PlayProps = {
     goal: Goal | null,
@@ -63,20 +64,12 @@ const Play: React.FC<PlayProps> = ({goal, setGameState, gameState,setProgress}) 
      ***************/
     return (
         <div>
-            {newGame ?
-                <div onClick={startNewGame}>
-                    Los geht's!
-                </div>:
-                <div>
-                    <div onClick={startNewGame}>
-                        Neustarten
-                    </div>
-                </div>
-            }
-            <div onClick={() => setGameState(beforeGame)}>
-                zur Übersicht
-            </div>
-            <span>{gameState.clicks}</span>
+            <ButtonBar
+                gameState={gameState}
+                newGame={newGame}
+                setGameState={setGameState}
+                startNewGame={startNewGame}
+            />
             <DisplayArticle article={article} setArticle={loadNextArticle} setProgress={setProgress}/>
             <CurrentGoal show={showGoal} setShowGoal={setShowGoal} article={goalArticle} goal={goal}/>
         </div>

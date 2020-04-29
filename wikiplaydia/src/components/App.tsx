@@ -43,7 +43,7 @@ const App = () => {
                     setGameState={setGameState}
                 />
             }
-            <div className="w3-margin w3-card w3-round w3-container">
+            <div className="w3-card w3-round w3-container wrapper">
                 {gameState.playing ?
                     <Play
                         goal={goal} gameState={gameState}

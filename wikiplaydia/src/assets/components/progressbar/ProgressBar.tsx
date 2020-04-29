@@ -17,7 +17,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({progress}) => {
     const getStyle = () => ({
         position: "sticky" as "sticky",
         top: 0,
-        height: 5,
+        height: progress < 1 ? 10 : 5,
         width: `${progress * 100}%`,
         transition: "ease-in-out .4s",
     })
@@ -26,7 +26,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({progress}) => {
      * RENDERING
      ***************/
     return (
-        <div className="w3-green w3-border w3-border-black w3-round" style={getStyle()}/>
+        <div className="w3-green w3-round" style={getStyle()}/>
     )
 };
 

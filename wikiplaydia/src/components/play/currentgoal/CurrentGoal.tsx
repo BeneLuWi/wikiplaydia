@@ -27,7 +27,9 @@ const CurrentGoal: React.FC<CurrentGoalProps> = ({show, setShowGoal, article, go
     if (!goal) return null;
 
     if (!show) return (
-        <div onClick={() => setShowGoal(true)}>
+        <div
+            className="w3-right w3-top"
+            onClick={() => setShowGoal(true)}>
             {goal?.title}
         </div>
     )
