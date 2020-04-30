@@ -116,6 +116,7 @@ export const createElement = (node: HtmlNode, onClick: (link: string | undefined
         case "tr":
         case "th":
         case "tbody":
+            if (!node.child.length) return []
             return (
                 <node.tag>
                     {node.child.map(child => createElement(child, onClick))}
