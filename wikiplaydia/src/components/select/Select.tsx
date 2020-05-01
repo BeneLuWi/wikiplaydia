@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {GameState, Goal, startGame} from "../App";
 import cl from "classnames";
+import {Trail} from "react-spring/renderprops-universal";
 
 type SelectProps = {
     goal: Goal | null,
@@ -19,11 +20,10 @@ const goals = [
     {title: "Trier", level: 1, score: 0},
     {title: "Universität Trier", level: 2, score: 0},
     {title: "Erdnuss", level: 3, score: 0},
+    {title: "Auderath", level: 3, score: 0},
+    {title: "Trampolin", level: 3, score: 0},
 ];
 
-const getScore = (goal: Goal, score: Goal[]) => {
-    return score.find(g => g.title === goal.title);
-}
 
 const Select: React.FC<SelectProps> = ({goal, setGoal, setGameState, gameState}) => {
 
@@ -39,8 +39,20 @@ const Select: React.FC<SelectProps> = ({goal, setGoal, setGameState, gameState})
         if (!scoreString){
             localStorage.setItem("score", JSON.stringify(goals));
             setScore(goals);
-        } else
-            setScore(JSON.parse(localStorage.getItem("score") as string));
+        } else {
+            let newScore = JSON.parse(localStorage.getItem("score") as string);
+            if (newScore.length < goals.length) {
+                newScore= goals.map(g => {
+                    const s = newScore.find((sc: Goal) => sc.title === g.title)
+                    return ({
+                        ...g,
+                        score: s ? s.score : 0,
+                    })
+                })
+            }
+
+            setScore(newScore);
+        }
     },[gameState.playing]);
 
     /***************
@@ -57,17 +69,31 @@ const Select: React.FC<SelectProps> = ({goal, setGoal, setGameState, gameState})
      ***************/
     return (
         <div>
-            <h2>Levelauswahl</h2>
-            {score.map(g =>
-                <p key={g.title}>
-                    <div
-                        className=" w3-btn w3-round w3-border w3-border-green"
-                        onClick={() => handleClick(g)}>
-                        <span className={cl("w3-badge", {"w3-green": g.score})}>{g.level}</span>&nbsp;
-                        {g.title} {g.score ? `----geschafft: ${g.score} Klicks`: ""}
-                    </div>
-                </p>
-            )}
+            <div className="w3-bar wikiplaydia-green w3-padding"> <span className="w3-right">Wikiplaydia</span></div>
+            <div className="w3-container">
+                <h2>Levelauswahl</h2>
+                <Trail items={score} keys={item => item.title} from={{transform: 'translateX(-40px)', opacity: 0}} to={{transform: 'translateY(0px)', opacity: 1}}>
+                    {item => props =>
+                        <p key={item.title}>
+                            <div
+                                className=" w3-btn w3-round w3-border w3-border-green"
+                                style={props}
+                                onClick={() => handleClick(item)}>
+                                {item.title} {item.score ? <span> <i className="far fa-check-circle w3-text-green"/> {item.score} Klicks </span>: ""}
+                            </div>
+                        </p>
+                    }
+                </Trail>
+            </div>
+            <div className="w3-container">
+                <h2>Wie funktionierts?</h2>
+                <ul className="w3-ul">
+                    <li><i className="fa fa-list"/> Level/Artikel auswählen</li>
+                    <li><i className="fa fa-glasses"/> Kurz überfliegen und wichtige Punkte merken</li>
+                    <li><i className="fa fa-rocket"/> Starten</li>
+                    <li><i className="far fa-check-circle"/> Den Zielartikel über die Verlinkungen in den neuen Artikeln finden</li>
+                </ul>
+            </div>
         </div>
     )
 };

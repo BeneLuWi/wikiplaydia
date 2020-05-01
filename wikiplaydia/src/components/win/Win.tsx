@@ -37,14 +37,16 @@ const Win: React.FC<WinProps> = ({goal, setGameState, gameState}) => {
      * RENDERING
      ***************/
     return (
-        <div>
-            <h1>Gewonnen!</h1>
-            <ul>
-                <li>{goal?.title} gefunden!</li>
-                <li>{gameState.clicks} Klicks wurden benötigt</li>
-            </ul>
-            <div onClick={handleClick}>
-                Speichern und zur Übersicht
+        <div className="w3-modal">
+            <div className="w3-modal-content w3-round w3-padding w3-animate-top">
+                <h1>Gewonnen!</h1>
+                <ul>
+                    <li>{goal?.title} gefunden!</li>
+                    <li>{gameState.clicks} Klicks wurden benötigt</li>
+                </ul>
+                <div onClick={handleClick} className="w3-button wikiplaydia-green">
+                    Speichern und zur Übersicht
+                </div>
             </div>
         </div>
     )

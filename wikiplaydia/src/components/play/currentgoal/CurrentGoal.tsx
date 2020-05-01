@@ -24,33 +24,33 @@ const CurrentGoal: React.FC<CurrentGoalProps> = ({show, setShowGoal, article, go
      * RENDERING
      ***************/
 
-    if (!goal) return null;
+    if (!goal ||!article.length) return null;
 
-    if (!show) return (
-        <div
-            className="w3-right w3-top"
-            onClick={() => setShowGoal(true)}>
-            {goal?.title}
-        </div>
-    )
-
-    if (!article.length) return <div>Loading</div>
+    if (!show) return null;
 
     return (
-        <div>
-            <div>
-                <h1 onClick={() => setShowGoal(false)}>
-                    {article[0].title}
-                </h1>
-                {article[0].content.map(node =>
-                    <span>
-                            {createElement(node, () => {})}
+        <div className="w3-modal">
+            <div className="w3-modal-content w3-container">
+                <div
+                    onClick={() => setShowGoal(false)}
+                    className="w3-red w3-button w3-round w3-card"
+                    style={{position: "fixed", top: 20, right: 20}}>
+                    Schließen <i className="fas fa-window-close"/>
+                </div>
+                <div>
+                    <h1>
+                        {article[0].title}
+                    </h1>
+                    {article[0].content.map(node =>
+                        <span>
+                            {createElement(node, () => {}, true)}
                         </span>
-                )}
-            </div>
-            {article.slice(1).map(section =>
-                <SectionAccordion loadNew={() => {}} section={section}/>
-            )}
+                    )}
+                    </div>
+                    {article.slice(1).map(section =>
+                        <SectionAccordion loadNew={() => {}} section={section} disabled={true}/>
+                    )}
+                </div>
         </div>
     )
 };

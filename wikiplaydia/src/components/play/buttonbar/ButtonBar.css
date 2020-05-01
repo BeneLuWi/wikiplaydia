@@ -1,0 +1,17 @@
+.letsgo-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 10;
+}
+
+.sidebar {
+    position: absolute;
+    overflow: hidden;
+}
+
+.score {
+    position: fixed;
+    bottom: 10px;
+    right: 10%;
+}

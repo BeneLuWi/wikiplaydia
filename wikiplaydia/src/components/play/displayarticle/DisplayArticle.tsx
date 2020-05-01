@@ -48,8 +48,8 @@ const DisplayArticle: React.FC<DisplayArticleProps> = ({article, setArticle, set
                 <h1>{article[0].title}</h1>
                 {article[0].content.map(node =>
                     <span>
-                            {createElement(node, loadNew)}
-                        </span>
+                        {createElement(node, loadNew)}
+                    </span>
                 )}
             </div>
             {article.slice(1).map(section =>

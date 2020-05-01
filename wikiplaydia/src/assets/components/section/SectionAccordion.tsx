@@ -7,12 +7,13 @@ import {useSpring} from "react-spring";
 
 type SectionProps = {
     section: Section,
-    loadNew: (link: string|undefined) => void
+    loadNew: (link: string|undefined) => void,
+    disabled?: boolean,
 }
 
 const defaultHeight = 0;
 
-const SectionAccordion: React.FC<SectionProps> = ({section,loadNew}) => {
+const SectionAccordion: React.FC<SectionProps> = ({section,loadNew, disabled= false}) => {
 
     /***************
      * HOOKS
@@ -32,13 +33,13 @@ const SectionAccordion: React.FC<SectionProps> = ({section,loadNew}) => {
             <div
                 className="w3-button section-header w3-border w3-margin-top"
                 onClick={() => setExpand(!expand)}>
-                {section.title}
+                <span dangerouslySetInnerHTML={{__html: section.title}}/>
             </div>
             {expand &&
                 <div>
                     {section.content.map(node =>
                         <span>
-                            {createElement(node, loadNew)}
+                            {createElement(node, loadNew, disabled)}
                         </span>
                     )}
                 </div>

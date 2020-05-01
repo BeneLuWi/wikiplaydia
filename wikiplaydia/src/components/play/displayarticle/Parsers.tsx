@@ -88,10 +88,11 @@ export const parse_node = (node: HtmlNode): HtmlNode[] => {
     }
 };
 
-export const createElement = (node: HtmlNode, onClick: (link: string | undefined) => void) => {
+export const createElement = (node: HtmlNode, onClick: (link: string | undefined) => void, disabled : boolean = false) => {
     switch (node.tag) {
         case "a":
             if (!node.link) return <span dangerouslySetInnerHTML={{__html: node.text}}/>
+            if (disabled) return <span className="w3-large" dangerouslySetInnerHTML={{__html: node.text}}/>
             return (
                 <button
                     className="w3-btn-small w3-border w3-border-green w3-round w3-small"
@@ -104,7 +105,7 @@ export const createElement = (node: HtmlNode, onClick: (link: string | undefined
         case "ul":
             return (
                 <ul className="">
-                    {node.child.filter(c => c.child.length).map(child => createElement(child, onClick))}
+                    {node.child.filter(c => c.child.length).map(child => createElement(child, onClick, disabled))}
                 </ul>
             );
         case "h1":
@@ -119,14 +120,16 @@ export const createElement = (node: HtmlNode, onClick: (link: string | undefined
             if (!node.child.length) return [];
             return (
                 <node.tag>
-                    {node.child.map(child => createElement(child, onClick))}
+                    {node.child.map(child => createElement(child, onClick, disabled))}
                 </node.tag>
             );
         case "table":
             return (
-                <table className="w3-table-all">
-                    {node.child.map(child => createElement(child, onClick))}
-                </table>
+                <div className="w3-responsive">
+                    <table className="w3-table-all">
+                        {node.child.map(child => createElement(child, onClick, disabled))}
+                    </table>
+                </div>
             )
     }
 };

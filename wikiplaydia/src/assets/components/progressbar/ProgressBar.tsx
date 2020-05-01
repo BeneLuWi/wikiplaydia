@@ -16,7 +16,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({progress}) => {
 
     const getStyle = () => ({
         top: 0,
-        height: progress < 1 ? 10 : 5,
+        height:5,
         width: `${progress * 100}%`,
         transition: "ease-in-out .4s",
     });
@@ -25,7 +25,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({progress}) => {
      * RENDERING
      ***************/
     return (
-        <div className="w3-green" style={getStyle()}/>
+        <div className="wikiplaydia-green" style={getStyle()}/>
     )
 };
 
