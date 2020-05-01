@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {GameState, Goal, startGame} from "../App";
+import cl from "classnames";
 
 type SelectProps = {
     goal: Goal | null,
@@ -18,7 +19,7 @@ const goals = [
     {title: "Trier", level: 1, score: 0},
     {title: "Universität Trier", level: 2, score: 0},
     {title: "Erdnuss", level: 3, score: 0},
-]
+];
 
 const getScore = (goal: Goal, score: Goal[]) => {
     return score.find(g => g.title === goal.title);
@@ -35,9 +36,10 @@ const Select: React.FC<SelectProps> = ({goal, setGoal, setGameState, gameState})
     // Reload score from local storage and create a data set, if not yet created
     useEffect(() => {
         const scoreString = localStorage.getItem("score");
-        if (!scoreString)
+        if (!scoreString){
             localStorage.setItem("score", JSON.stringify(goals));
-        else
+            setScore(goals);
+        } else
             setScore(JSON.parse(localStorage.getItem("score") as string));
     },[gameState.playing]);
 
@@ -48,22 +50,24 @@ const Select: React.FC<SelectProps> = ({goal, setGoal, setGameState, gameState})
     const handleClick = (g: Goal) => {
         setGoal(g);
         setGameState(startGame);
-    }
+    };
 
     /***************
      * RENDERING
      ***************/
     return (
         <div>
-            <ul>
-                {score.map(g =>
-                    <li
-                        onClick={() => handleClick(g)}
-                        key={g.title}>
+            <h2>Levelauswahl</h2>
+            {score.map(g =>
+                <p key={g.title}>
+                    <div
+                        className=" w3-btn w3-round w3-border w3-border-green"
+                        onClick={() => handleClick(g)}>
+                        <span className={cl("w3-badge", {"w3-green": g.score})}>{g.level}</span>&nbsp;
                         {g.title} {g.score ? `----geschafft: ${g.score} Klicks`: ""}
-                    </li>
-                )}
-            </ul>
+                    </div>
+                </p>
+            )}
         </div>
     )
 };

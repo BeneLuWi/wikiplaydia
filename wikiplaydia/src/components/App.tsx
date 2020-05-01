@@ -35,7 +35,7 @@ const App = () => {
 
 
     return(
-        <div>
+        <div className="w3-card w3-round wrapper">
             <ProgressBar progress={progress}/>
             {gameState.win &&
                 <Win
@@ -43,7 +43,7 @@ const App = () => {
                     setGameState={setGameState}
                 />
             }
-            <div className="w3-card w3-round w3-container wrapper">
+            <div className="w3-container">
                 {gameState.playing ?
                     <Play
                         goal={goal} gameState={gameState}

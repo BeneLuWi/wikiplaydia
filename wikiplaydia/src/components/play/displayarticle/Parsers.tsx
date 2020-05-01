@@ -86,7 +86,7 @@ export const parse_node = (node: HtmlNode): HtmlNode[] => {
         default:
             return node.child ? node.child.map(ch => parse_node(ch)).flat() : [];
     }
-}
+};
 
 export const createElement = (node: HtmlNode, onClick: (link: string | undefined) => void) => {
     switch (node.tag) {
@@ -94,19 +94,19 @@ export const createElement = (node: HtmlNode, onClick: (link: string | undefined
             if (!node.link) return <span dangerouslySetInnerHTML={{__html: node.text}}/>
             return (
                 <button
-                    className="w3-btn-small w3-green w3-round w3-small"
+                    className="w3-btn-small w3-border w3-border-green w3-round w3-small"
                     onClick={() => onClick(node.link)}>
                     <span dangerouslySetInnerHTML={{__html: node.text}}/>
                 </button>
-            )
+            );
         case "text":
-            return <span dangerouslySetInnerHTML={{__html: node.text}}/>
+            return <span dangerouslySetInnerHTML={{__html: node.text}}/>;
         case "ul":
             return (
                 <ul className="">
                     {node.child.filter(c => c.child.length).map(child => createElement(child, onClick))}
                 </ul>
-            )
+            );
         case "h1":
         case "h2":
         case "h3":
@@ -116,12 +116,12 @@ export const createElement = (node: HtmlNode, onClick: (link: string | undefined
         case "tr":
         case "th":
         case "tbody":
-            if (!node.child.length) return []
+            if (!node.child.length) return [];
             return (
                 <node.tag>
                     {node.child.map(child => createElement(child, onClick))}
                 </node.tag>
-            )
+            );
         case "table":
             return (
                 <table className="w3-table-all">
