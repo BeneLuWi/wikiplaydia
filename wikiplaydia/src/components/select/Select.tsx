@@ -21,7 +21,12 @@ const goals = [
     {title: "Universität Trier", level: 2, score: 0},
     {title: "Erdnuss", level: 3, score: 0},
     {title: "Auderath", level: 3, score: 0},
-    {title: "Trampolin", level: 3, score: 0},
+    {title: "Bon Jovi", level: 3, score: 0},
+    {title: "Frank Sinatra", level: 3, score: 0},
+    {title: "Poker", level: 3, score: 0},
+    {title: "Dirty Dancing", level: 3, score: 0},
+    {title: "Gordon Ramsay", level: 3, score: 0},
+    {title: "Star Trek", level: 3, score: 0},
 ];
 
 
@@ -70,22 +75,18 @@ const Select: React.FC<SelectProps> = ({goal, setGoal, setGameState, gameState})
     return (
         <div>
             <div className="w3-bar wikiplaydia-green w3-padding"> <span className="w3-right">Wikiplaydia</span></div>
-            <div className="w3-container">
+            <div className="w3-container w3-animate-opacity">
                 <h2>Levelauswahl</h2>
-                <Trail items={score} keys={item => item.title} from={{transform: 'translateX(-40px)', opacity: 0}} to={{transform: 'translateY(0px)', opacity: 1}}>
-                    {item => props =>
-                        <p key={item.title}>
-                            <div
-                                className=" w3-btn w3-round w3-border w3-border-green"
-                                style={props}
-                                onClick={() => handleClick(item)}>
-                                {item.title} {item.score ? <span> <i className="far fa-check-circle w3-text-green"/> {item.score} Klicks </span>: ""}
-                            </div>
-                        </p>
-                    }
-                </Trail>
+                {score.map(item =>
+                    <div
+                        key={item.title}
+                        className=" w3-btn w3-round w3-border w3-border-green w3-margin"
+                        onClick={() => handleClick(item)}>
+                        {item.title} {item.score ? <span> <i className="far fa-check-circle w3-text-green"/> {item.score} Klicks </span>: ""}
+                    </div>
+                )}
             </div>
-            <div className="w3-container">
+            <div className="w3-container w3-animate-opacity">
                 <h2>Wie funktionierts?</h2>
                 <ul className="w3-ul">
                     <li><i className="fa fa-list"/> Level/Artikel auswählen</li>

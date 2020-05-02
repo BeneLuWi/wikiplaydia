@@ -11,7 +11,6 @@ type SectionProps = {
     disabled?: boolean,
 }
 
-const defaultHeight = 0;
 
 const SectionAccordion: React.FC<SectionProps> = ({section,loadNew, disabled= false}) => {
 
