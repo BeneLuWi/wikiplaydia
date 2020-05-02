@@ -22,20 +22,24 @@ const DisplayArticle: React.FC<DisplayArticleProps> = ({article, setArticle, set
             top: 0,
             left: 0,
         });
-    }, [article])
+    }, [article]);
 
     /***************
      * FUNCTIONS
      ***************/
     const loadNew = (link: string|undefined) => {
         setProgress(0);
+        window.scrollTo({
+            top: 0,
+            left: 0,
+        });
         axios.get("https://de.wikipedia.org/api/rest_v1/page/mobile-sections/" + link, {
             onDownloadProgress: p => setProgress(p.loaded / 100000)
         })
             .then(res =>{
                 setArticle(article2sections(res.data));
             }).catch(err => console.log(err))
-    }
+    };
     /***************
      * RENDERING
      ***************/

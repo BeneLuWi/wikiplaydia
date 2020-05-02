@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Section} from "../../../components/App";
 import {createElement} from "../../../components/play/displayarticle/Parsers";
 import "./SectionAccordion.css"
@@ -19,6 +19,8 @@ const SectionAccordion: React.FC<SectionProps> = ({section,loadNew, disabled= fa
      ***************/
 
     const [expand, setExpand] = useState<boolean>(false);
+
+    useEffect(() => {setExpand(false)}, [section]);
 
     /***************
      * FUNCTIONS

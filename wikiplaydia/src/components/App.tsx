@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './App.css';
 import {HtmlNode} from "./play/displayarticle/Parsers";
 import Play from "./play/Play";
@@ -31,6 +31,17 @@ const App = () => {
     const [gameState, setGameState] = useState<GameState>({playing: false, clicks: 0, win: false})
     const [progress, setProgress] = useState(1);
 
+    useEffect(() => {
+
+        const onBeforeUnloadEventHandler = (e: any) => {
+            e.preventDefault();
+            e.returnValue = '';
+        };
+
+        window.addEventListener("beforeunload", onBeforeUnloadEventHandler);
+
+        return () => window.removeEventListener("beforeunload", onBeforeUnloadEventHandler);
+    }, []);
 
     return(
         <div className="w3-card wrapper">

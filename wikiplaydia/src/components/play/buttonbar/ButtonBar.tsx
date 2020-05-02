@@ -23,7 +23,7 @@ const ButtonBar: React.FC<ButtonBarProps> = ({startNewGame, setGameState, gameSt
     const [showBar, setShowBar] = useState<boolean>(false);
 
     const transitions = useTransition(showBar, null, {
-        from: { height: 0},
+        from: { height: 0, width: 200},
         enter: { height: 200},
         leave: { height: 0 },
     })
@@ -41,7 +41,7 @@ const ButtonBar: React.FC<ButtonBarProps> = ({startNewGame, setGameState, gameSt
                 <button
                     className="w3-button w3-bar-item"
                     onClick={() => setShowBar(!showBar)}>
-                    <i className="fa fa-bars"/>
+                    <i className="fa fa-ellipsis-h"/>
                 </button>
                 <span className="w3-bar-item w3-right">
                     WikiPlaydia
@@ -49,7 +49,7 @@ const ButtonBar: React.FC<ButtonBarProps> = ({startNewGame, setGameState, gameSt
                 <button
                     className="w3-bar-item w3-button"
                     onClick={() => setShowGoal(!showGoal)}>
-                    Aktuelles Ziel: {goal?.title}
+                    <i className="fa fa-info-circle"/> {goal?.title}
                 </button>
                 {!newGame &&
                     <span
@@ -61,7 +61,7 @@ const ButtonBar: React.FC<ButtonBarProps> = ({startNewGame, setGameState, gameSt
 
             {transitions.map(({ item, key, props }) =>
                 item &&
-                    <animated.div className="wikiplaydia-green w3-sidebar" style={props}>
+                    <animated.div className="wikiplaydia-green sidebar" style={props}>
                         {!newGame &&
                         <button
                             onClick={() => {startNewGame(); setShowBar(!showBar);}}
