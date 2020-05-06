@@ -30,7 +30,7 @@ const CurrentGoal: React.FC<CurrentGoalProps> = ({show, setShowGoal, article, go
 
     return (
         <div className="w3-modal">
-            <div className="w3-modal-content w3-container">
+            <div className="w3-modal-content w3-container w3-round w3-animate-opacity">
                 <div
                     onClick={() => setShowGoal(false)}
                     className="w3-red w3-button w3-round w3-card"

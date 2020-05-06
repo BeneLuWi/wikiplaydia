@@ -44,10 +44,7 @@ const ButtonBar: React.FC<ButtonBarProps> = ({startNewGame, setGameState, gameSt
                     <i className="fa fa-ellipsis-h"/>
                 </button>
                 <span className="w3-bar-item w3-right">
-                    <img src={logo} height={20} width={20} alt="Wikiplaydia logo"/>
-                </span>
-                <span className="w3-bar-item w3-right">
-                    WikiPlaydia
+                    Wikiplaydia
                 </span>
                 <button
                     className="w3-bar-item w3-button"

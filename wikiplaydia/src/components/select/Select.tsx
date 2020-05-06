@@ -76,12 +76,12 @@ const Select: React.FC<SelectProps> = ({goal, setGoal, setGameState, gameState})
     return (
         <div>
             <div className="w3-bar wikiplaydia-green">
-                <span className="w3-bar-item w3-right">
-                    <img src={logo} height={35} width={35} alt="Wikiplaydia logo"/>
-                </span>
                 <span className="w3-right w3-bar-item">Wikiplaydia</span>
             </div>
             <div className="w3-container w3-animate-opacity">
+                <span className="w3-bar-item w3-right w3-margin-top">
+                    <img className="w3-opacity" src={logo} height={40} width={40} alt="Wikiplaydia logo"/>
+                </span>
                 <h2>Levelauswahl</h2>
                 {score.map(item =>
                     <div

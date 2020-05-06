@@ -26,7 +26,7 @@ const Play: React.FC<PlayProps> = ({goal, setGameState, gameState,setProgress}) 
 
     useEffect(() => {
         setProgress(1);
-    }, [goalArticle])
+    }, [goalArticle]);
 
     // Effect to load the goal article
     useEffect(() => {
