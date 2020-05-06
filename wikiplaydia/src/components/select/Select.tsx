@@ -3,6 +3,7 @@ import {GameState, Goal, startGame} from "../App";
 import cl from "classnames";
 import {Trail} from "react-spring/renderprops-universal";
 import logo from "../../assets/img/logo-noback-256.png";
+import {shareApp} from "../play/buttonbar/ButtonBar";
 
 type SelectProps = {
     goal: Goal | null,
@@ -99,6 +100,15 @@ const Select: React.FC<SelectProps> = ({goal, setGoal, setGameState, gameState})
                     <li><i className="fa fa-glasses"/> Kurz überfliegen und wichtige Punkte merken</li>
                     <li><i className="fa fa-rocket"/> Starten</li>
                     <li><i className="far fa-check-circle"/> Den Zielartikel über die Verlinkungen in den neuen Artikeln finden</li>
+                </ul>
+            </div>
+            <div className="w3-container w3-animate-opacity">
+                <h2>App teilen / Freunde einladen</h2>
+                <ul className="w3-ul w3-large">
+                    <li
+                        className="w3-btn"
+                        onClick={shareApp}
+                    ><i className="fa fa-share"/> Hier klicken, um die App zu teilen</li>
                 </ul>
             </div>
         </div>

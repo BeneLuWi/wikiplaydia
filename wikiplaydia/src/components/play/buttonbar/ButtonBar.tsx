@@ -14,6 +14,22 @@ type ButtonBarProps = {
     setShowGoal: (show: boolean) => void,
 }
 
+export const shareApp = () => {
+    // @ts-ignore
+    if (navigator.share) {
+        // @ts-ignore
+        navigator.share({
+            title: 'Wikiplaydia',
+            text: "Guck dir mal dieses Spiel an.",
+            url: 'https://beneluwi.github.io/wikiplaydia/',
+        })
+            .then(() => console.log('Successful share'))
+            .catch((error: any) => console.log('Error sharing', error));
+    } else {
+        navigator.clipboard.writeText("https://beneluwi.github.io/wikiplaydia/");
+    }
+};
+
 const ButtonBar: React.FC<ButtonBarProps> = ({startNewGame, setGameState, gameState, newGame, showGoal, setShowGoal, goal}) => {
 
     /***************
@@ -26,7 +42,8 @@ const ButtonBar: React.FC<ButtonBarProps> = ({startNewGame, setGameState, gameSt
         from: { height: 0, width: 200},
         enter: { height: 200},
         leave: { height: 0 },
-    })
+    });
+
 
     /***************
      * FUNCTIONS
@@ -43,7 +60,9 @@ const ButtonBar: React.FC<ButtonBarProps> = ({startNewGame, setGameState, gameSt
                     onClick={() => setShowBar(!showBar)}>
                     <i className="fa fa-ellipsis-h"/>
                 </button>
-                <span className="w3-bar-item w3-right">
+                <span
+                    onClick={shareApp}
+                    className="w3-bar-item w3-right">
                     Wikiplaydia
                 </span>
                 <button
@@ -73,6 +92,11 @@ const ButtonBar: React.FC<ButtonBarProps> = ({startNewGame, setGameState, gameSt
                             className="w3-bar-item w3-button"
                             onClick={() => {setGameState(beforeGame); setShowBar(!showBar);}}>
                             <i className="fa fa-window-close"/>&nbsp;Zur Übersicht
+                        </button>
+                        <button
+                            className="w3-bar-item w3-button"
+                            onClick={shareApp}>
+                            <i className="fa fa-share"/>&nbsp;App teilen
                         </button>
                     </animated.div>
             )}
