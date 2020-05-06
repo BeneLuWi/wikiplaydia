@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {beforeGame, GameState, Goal} from "../../App";
 import "./ButtonBar.css";
 import {useTransition, animated} from "react-spring";
-
+import logo from "../../../assets/img/logo-noback-256.png";
 
 type ButtonBarProps = {
     startNewGame: () => void,
@@ -43,6 +43,9 @@ const ButtonBar: React.FC<ButtonBarProps> = ({startNewGame, setGameState, gameSt
                     onClick={() => setShowBar(!showBar)}>
                     <i className="fa fa-ellipsis-h"/>
                 </button>
+                <span className="w3-bar-item w3-right">
+                    <img src={logo} height={20} width={20} alt="Wikiplaydia logo"/>
+                </span>
                 <span className="w3-bar-item w3-right">
                     WikiPlaydia
                 </span>

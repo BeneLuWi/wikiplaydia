@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {GameState, Goal, startGame} from "../App";
 import cl from "classnames";
 import {Trail} from "react-spring/renderprops-universal";
+import logo from "../../assets/img/logo-noback-256.png";
 
 type SelectProps = {
     goal: Goal | null,
@@ -74,7 +75,12 @@ const Select: React.FC<SelectProps> = ({goal, setGoal, setGameState, gameState})
      ***************/
     return (
         <div>
-            <div className="w3-bar wikiplaydia-green w3-padding"> <span className="w3-right">Wikiplaydia</span></div>
+            <div className="w3-bar wikiplaydia-green">
+                <span className="w3-bar-item w3-right">
+                    <img src={logo} height={35} width={35} alt="Wikiplaydia logo"/>
+                </span>
+                <span className="w3-right w3-bar-item">Wikiplaydia</span>
+            </div>
             <div className="w3-container w3-animate-opacity">
                 <h2>Levelauswahl</h2>
                 {score.map(item =>

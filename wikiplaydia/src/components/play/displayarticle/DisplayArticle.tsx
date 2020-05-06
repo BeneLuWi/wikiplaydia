@@ -3,7 +3,8 @@ import {Section} from "../../App";
 import {article2sections, createElement, parse_section} from "./Parsers";
 import axios from "axios";
 import SectionAccordion from "../../../assets/components/section/SectionAccordion";
-
+import logo from "../../../assets/img/logo-noback-256.png";
+import "./DisplayArticle.css";
 type DisplayArticleProps = {
     article: Section[],
     setArticle: (sections: Section[]) => void,
@@ -44,7 +45,11 @@ const DisplayArticle: React.FC<DisplayArticleProps> = ({article, setArticle, set
      * RENDERING
      ***************/
 
-    if (!article.length) return null;
+    if (!article.length) return (
+        <div className="load-logo-container">
+            <img className="w3-image w3-opacity" width={150} height={150} src={logo} alt="Wikiplaydia Logo"/>
+        </div>
+    );
 
     return (
         <div>
