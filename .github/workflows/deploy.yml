@@ -22,7 +22,7 @@ jobs:
           git-config-name: BeneLuWi
           git-config-email: b.lueken.winkels@gmail.com
           repository-name: BeneLuWi/beneluwi.github.io
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GH_PAGES_TOKEN }}
           branch: main
           folder: wikiplaydia/build
           target-folder: apps/wikiplaydia
